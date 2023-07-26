@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:satmaver_flutter/controllers/login_controllers.dart';
+import 'package:satmaver_flutter/models/user.dart';
+import 'package:satmaver_flutter/screens/home_page.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends GetView<LoginControllers> {
   const RegisterPage({super.key});
 
   @override
@@ -65,10 +69,15 @@ class RegisterPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(25),
                                     color: Colors.grey.withOpacity(.3),
                                   ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                                     child: TextField(
-                                      decoration: InputDecoration(
+                                      onChanged: (value) {
+                                        controller.registerNameController.value.text = value;
+                                      },
+                                      controller: controller.registerNameController.value,
+                                      decoration: const InputDecoration(
                                           icon: Icon(Icons.person),
                                           fillColor: Colors.white,
                                           border: InputBorder.none,
@@ -88,10 +97,15 @@ class RegisterPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(25),
                                     color: Colors.grey.withOpacity(.3),
                                   ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                                     child: TextField(
-                                      decoration: InputDecoration(
+                                      onChanged: (value) {
+                                        controller.registerEmailController.value.text = value;
+                                      },
+                                      controller: controller.registerEmailController.value,
+                                      decoration: const InputDecoration(
                                           icon: Icon(Icons.lock),
                                           fillColor: Colors.white,
                                           border: InputBorder.none,
@@ -111,10 +125,16 @@ class RegisterPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(25),
                                     color: Colors.grey.withOpacity(.3),
                                   ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                                     child: TextField(
-                                      decoration: InputDecoration(
+                                      onChanged: (value) {
+                                        controller.registerPasswordController.value.text = value;
+                                      },
+                                      controller: controller.registerPasswordController.value,
+                                      obscureText: true,
+                                      decoration: const InputDecoration(
                                           icon: Icon(Icons.lock),
                                           fillColor: Colors.white,
                                           border: InputBorder.none,
@@ -133,7 +153,25 @@ class RegisterPage extends StatelessWidget {
                                     "Sign up",
                                     style: TextStyle(color: Colors.red),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (controller.registerNameController.value.text.isEmpty ||
+                                        controller.registerEmailController.value.text.isEmpty ||
+                                        controller.registerPasswordController.value.text.isEmpty) {
+                                      Get.snackbar("Hata", "Tüm boşlukları doldurun");
+                                    } else {
+                                      User user = User(
+                                          name: controller.registerNameController.value.text,
+                                          email: controller.registerEmailController.value.text,
+                                          password:
+                                              controller.registerPasswordController.value.text);
+                                      print(user.toString());
+                                      controller.addLoginBox(user);
+                                      controller.registerNameController.value.text = "";
+                                      controller.registerEmailController.value.text = "";
+                                      controller.registerPasswordController.value.text = "";
+                                      Get.off(const HomePage());
+                                    }
+                                  },
                                 ),
                               ),
                             )

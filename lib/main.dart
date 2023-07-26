@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:satmaver_flutter/models/user.dart';
 import 'package:satmaver_flutter/screens/splash_page.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserAdapter());
+  await Hive.openBox<User>("myBox");
+
   runApp(const MyApp());
 }
 
