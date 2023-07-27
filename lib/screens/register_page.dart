@@ -73,10 +73,7 @@ class RegisterPage extends GetView<LoginControllers> {
                                     padding:
                                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                                     child: TextField(
-                                      onChanged: (value) {
-                                        controller.registerNameController.value.text = value;
-                                      },
-                                      controller: controller.registerNameController.value,
+                                      controller: controller.registerNameController,
                                       decoration: const InputDecoration(
                                           icon: Icon(Icons.person),
                                           fillColor: Colors.white,
@@ -101,10 +98,7 @@ class RegisterPage extends GetView<LoginControllers> {
                                     padding:
                                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                                     child: TextField(
-                                      onChanged: (value) {
-                                        controller.registerEmailController.value.text = value;
-                                      },
-                                      controller: controller.registerEmailController.value,
+                                      controller: controller.registerEmailController,
                                       decoration: const InputDecoration(
                                           icon: Icon(Icons.lock),
                                           fillColor: Colors.white,
@@ -129,10 +123,7 @@ class RegisterPage extends GetView<LoginControllers> {
                                     padding:
                                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                                     child: TextField(
-                                      onChanged: (value) {
-                                        controller.registerPasswordController.value.text = value;
-                                      },
-                                      controller: controller.registerPasswordController.value,
+                                      controller: controller.registerPasswordController,
                                       obscureText: true,
                                       decoration: const InputDecoration(
                                           icon: Icon(Icons.lock),
@@ -166,9 +157,9 @@ class RegisterPage extends GetView<LoginControllers> {
                                               controller.registerPasswordController.value.text);
                                       print(user.toString());
                                       controller.addLoginBox(user);
-                                      controller.registerNameController.value.text = "";
-                                      controller.registerEmailController.value.text = "";
-                                      controller.registerPasswordController.value.text = "";
+                                      controller.registerNameController.text = "";
+                                      controller.registerEmailController.text = "";
+                                      controller.registerPasswordController.text = "";
                                       Get.off(const HomePage());
                                     }
                                   },

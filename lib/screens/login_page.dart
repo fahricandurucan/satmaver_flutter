@@ -72,114 +72,109 @@ class LoginPage extends StatelessWidget {
                                   blurRadius: 10,
                                 ),
                               ]),
-                          child: Obx(
-                            () => Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width / 1.2,
-                                      margin: const EdgeInsets.only(top: 30),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color.fromARGB(255, 255, 48, 117)),
-                                        borderRadius: BorderRadius.circular(25),
-                                        color: Colors.white,
-                                      ),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                                        child: TextField(
-                                          onChanged: (value) {
-                                            controllers.emailController.value.text = value;
-                                          },
-                                          controller: controllers.emailController.value,
-                                          decoration: const InputDecoration(
-                                              icon: Icon(Icons.email_outlined),
-                                              fillColor: Colors.white,
-                                              border: InputBorder.none,
-                                              hintText: "Email"),
-                                        ),
-                                      ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width / 1.2,
+                                    margin: const EdgeInsets.only(top: 30),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color.fromARGB(255, 255, 48, 117)),
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.white,
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width / 1.2,
-                                      margin: const EdgeInsets.only(top: 30),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color.fromARGB(255, 255, 48, 117)),
-                                        borderRadius: BorderRadius.circular(25),
-                                        color: Colors.white,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                      child: TextField(
+                                        controller: controllers.emailController,
+                                        decoration: const InputDecoration(
+                                            icon: Icon(Icons.email_outlined),
+                                            fillColor: Colors.white,
+                                            border: InputBorder.none,
+                                            hintText: "Email"),
                                       ),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                                        child: TextField(
-                                          onChanged: (value) {
-                                            controllers.passwordController.value.text = value;
-                                          },
-                                          controller: controllers.passwordController.value,
-                                          obscureText: true,
-                                          decoration: const InputDecoration(
-                                              icon: Icon(Icons.lock),
-                                              fillColor: Colors.white,
-                                              border: InputBorder.none,
-                                              hintText: "Password"),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: ElevatedButton(
-                                      child: Text(
-                                        "Log in",
-                                        style: TextStyle(color: Colors.pink.shade400),
-                                      ),
-                                      onPressed: () {
-                                        if (controllers.passwordController.value.text.isEmpty &&
-                                            controllers.emailController.value.text.isEmpty) {
-                                          Get.snackbar("Email and Password", "empty");
-                                          controllers.passwordController.value.text = "";
-                                          controllers.emailController.value.text = "";
-                                        } else if (controllers
-                                            .passwordController.value.text.isEmpty) {
-                                          Get.snackbar("Password", "empty");
-                                          controllers.emailController.value.text = "";
-                                          controllers.passwordController.value.text = "";
-                                        } else if (controllers.emailController.value.text.isEmpty) {
-                                          controllers.emailController.value.text = "";
-                                          controllers.passwordController.value.text = "";
-                                          Get.snackbar("Email", "empty");
-                                        } else {
-                                          User user = User(
-                                              name: "",
-                                              email: controllers.emailController.value.text,
-                                              password: controllers.passwordController.value.text);
-                                          controllers.isLogged(user)
-                                              ? Get.to(const HomePage())
-                                              : Get.snackbar("User", "please create account");
-                                        }
-
-                                        controllers.passwordController.value.text = "";
-                                        controllers.emailController.value.text = "";
-
-                                        // Get.to(const HomePage());
-                                      },
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width / 1.2,
+                                    margin: const EdgeInsets.only(top: 30),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color.fromARGB(255, 255, 48, 117)),
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Colors.white,
+                                    ),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                      child: TextField(
+                                        controller: controllers.passwordController,
+                                        obscureText: true,
+                                        decoration: const InputDecoration(
+                                            icon: Icon(Icons.lock),
+                                            fillColor: Colors.white,
+                                            border: InputBorder.none,
+                                            hintText: "Password"),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    child: Text(
+                                      "Log in",
+                                      style: TextStyle(color: Colors.pink.shade400),
+                                    ),
+                                    onPressed: () {
+                                      print(controllers.emailController.text);
+                                      print(controllers.passwordController.text);
+
+                                      if (controllers.passwordController.value.text.isEmpty &&
+                                          controllers.emailController.value.text.isEmpty) {
+                                        Get.snackbar("Email and Password", "empty");
+                                        controllers.passwordController.text = "";
+                                        controllers.emailController.text = "";
+                                      } else if (controllers
+                                          .passwordController.value.text.isEmpty) {
+                                        Get.snackbar("Password", "empty");
+                                        controllers.emailController.text = "";
+                                        controllers.passwordController.text = "";
+                                      } else if (controllers.emailController.text.isEmpty) {
+                                        controllers.emailController.text = "";
+                                        controllers.passwordController.text = "";
+                                        Get.snackbar("Email", "empty");
+                                      } else {
+                                        User user = User(
+                                            name: "",
+                                            email: controllers.emailController.value.text,
+                                            password: controllers.passwordController.value.text);
+                                        controllers.isLogged(user)
+                                            ? Get.to(const HomePage())
+                                            : Get.snackbar("User", "please create account");
+                                      }
+
+                                      controllers.passwordController.text = "";
+                                      controllers.emailController.text = "";
+
+                                      // Get.to(const HomePage());
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                         const SizedBox(

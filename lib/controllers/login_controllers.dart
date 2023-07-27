@@ -14,14 +14,13 @@ class LoginControllers extends GetxController {
 
   final userBox = <User>[].obs;
 
-  final Rx<TextEditingController> emailController = TextEditingController().obs;
-  final Rx<TextEditingController> passwordController = TextEditingController().obs;
-  final Rx<TextEditingController> registerNameController = TextEditingController().obs;
-  final Rx<TextEditingController> registerEmailController = TextEditingController().obs;
-  final Rx<TextEditingController> registerPasswordController = TextEditingController().obs;
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  final registerNameController = TextEditingController();
+  final registerEmailController = TextEditingController();
+  final registerPasswordController = TextEditingController();
 
   void addLoginBox(User user) {
-    loginBox.clear();
     loginBox.add(user);
     userBox.add(user);
   }
