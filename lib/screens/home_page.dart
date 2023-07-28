@@ -2,80 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:satmaver_flutter/controllers/login_controllers.dart';
+import 'package:satmaver_flutter/screens/favorite_page.dart';
+import 'package:satmaver_flutter/screens/home_page2.dart';
+import 'package:satmaver_flutter/screens/product_page.dart';
+import 'package:satmaver_flutter/screens/profile_page.dart';
 
 class HomePage extends GetView<LoginControllers> {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final list = [
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x",
-      "x"
-    ];
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("HomePage"),
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(
-                  "images/star.png",
-                  width: 50,
-                ),
-                const SizedBox(width: 30),
-                const Text(
-                  "Sana en yakın ürünler",
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          GridView.builder(
-            shrinkWrap: true, // Important to allow the GridView to be placed inside a ListView
-            physics: const NeverScrollableScrollPhysics(), // Disable GridView's scroll
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // Number of columns in the grid
-              crossAxisSpacing: 8, // Spacing between columns
-              mainAxisSpacing: 8, // Spacing between rows
-            ),
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return Card(
-                child: Center(
-                  child: Text(
-                    list[index],
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+      body: Obx(
+        () => controller.bottomNavBarIdx.value == 0
+            ? const HomePage2()
+            : controller.bottomNavBarIdx.value == 1
+                ? const ProductPage()
+                : controller.bottomNavBarIdx.value == 2
+                    ? const FavoritePage()
+                    : const ProfilePage(),
       ),
       bottomNavigationBar: Obx(
         () => Padding(
