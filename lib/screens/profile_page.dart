@@ -10,23 +10,76 @@ class ProfilePage extends GetView<LoginControllers> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Merhaba ${controller.userName}"),
+        leading: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Container(
+            margin: const EdgeInsets.all(4),
+            alignment: Alignment.center,
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+                color: Colors.pink.shade100.withOpacity(.7),
+                borderRadius: const BorderRadius.all(Radius.circular(25))),
+            child: const Icon(
+              Icons.person,
+              color: Colors.red,
+            ),
+          ),
+        ),
       ),
       body: ListView(
         children: [
-          for (int i = 0; i < 4; i++) listTileWidget(),
+          const Divider(),
+          const SizedBox(
+            height: 100,
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.favorite,
+              color: Colors.pink[300],
+              size: 40,
+            ),
+            title: const Text("Favoriler"),
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.sell_outlined,
+              color: Colors.pink[300],
+              size: 40,
+            ),
+            title: const Text("Sattıklarım"),
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.gif_box_outlined,
+              color: Colors.pink[300],
+              size: 40,
+            ),
+            title: const Text("Aldıklarım"),
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.location_city,
+              color: Colors.pink[300],
+              size: 40,
+            ),
+            title: const Text("Konum"),
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.account_box,
+              color: Colors.pink[300],
+              size: 40,
+            ),
+            title: const Text("Çıkış"),
+          ),
+          const Divider(),
         ],
-      ),
-    );
-  }
-
-  Widget listTileWidget() {
-    return Container(
-      child: ListTile(
-        leading: Icon(
-          Icons.favorite,
-          color: Colors.pink[300],
-        ),
-        title: const Text("welfkjwkleşf"),
       ),
     );
   }

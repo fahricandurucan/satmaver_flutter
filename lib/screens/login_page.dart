@@ -162,7 +162,7 @@ class LoginPage extends StatelessWidget {
                                             email: controllers.emailController.value.text,
                                             password: controllers.passwordController.value.text);
                                         controllers.isLogged(user)
-                                            ? Get.to(const HomePage())
+                                            ? Get.off(const HomePage())
                                             : Get.snackbar("User", "please create account");
                                       }
 
