@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:satmaver_flutter/controllers/login_controllers.dart';
+import 'package:satmaver_flutter/screens/login_page.dart';
 
 class ProfilePage extends GetView<LoginControllers> {
   const ProfilePage({super.key});
@@ -63,20 +65,30 @@ class ProfilePage extends GetView<LoginControllers> {
           const Divider(),
           ListTile(
             leading: Icon(
-              Icons.location_city,
+              Icons.location_on,
               color: Colors.pink[300],
               size: 40,
             ),
             title: const Text("Konum"),
           ),
           const Divider(),
-          ListTile(
-            leading: Icon(
-              Icons.account_box,
-              color: Colors.pink[300],
-              size: 40,
+          GestureDetector(
+            onTap: () {
+              EasyLoading.show(maskType: EasyLoadingMaskType.clear, status: "Çıkış Yapılıyor...");
+              Future.delayed(const Duration(seconds: 3), () {
+                Get.off(const LoginPage(), transition: Transition.upToDown);
+                controller.deleteAccount(controller.userName.value);
+                EasyLoading.dismiss();
+              });
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.account_box,
+                color: Colors.pink[300],
+                size: 40,
+              ),
+              title: const Text("Oturumu Sonlandır"),
             ),
-            title: const Text("Çıkış"),
           ),
           const Divider(),
         ],

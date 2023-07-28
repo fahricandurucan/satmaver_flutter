@@ -22,20 +22,31 @@ class LoginControllers extends GetxController {
 
   void addLoginBox(User user) {
     loginBox.add(user);
+    getUser(user);
     userBox.add(user);
   }
 
-  void getUser() {
-    for (final x in loginBox.values) {
-      userName.value = x.name;
-      userEmail.value = x.email;
-      userPassword.value = x.password;
+  void deleteAccount(String name) {
+    print("ilk${loginBox.length}");
+
+    for (final key in loginBox.keys) {
+      if (name == loginBox.get(key)!.name) {
+        loginBox.delete(key);
+        print("son${loginBox.length}");
+      }
     }
+  }
+
+  void getUser(User user) {
+    userName.value = user.name;
+    userEmail.value = user.email;
+    userPassword.value = user.password;
   }
 
   bool isLogged(User user) {
     for (var x in loginBox.values) {
       if (x.email == user.email && x.password == user.password) {
+        getUser(x);
         return true;
       }
     }
@@ -45,7 +56,6 @@ class LoginControllers extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    getUser();
     super.onInit();
   }
 }
