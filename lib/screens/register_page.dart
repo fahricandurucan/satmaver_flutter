@@ -166,7 +166,7 @@ class RegisterPage extends GetView<LoginControllers> {
                                         controller.registerNameController.text = "";
                                         controller.registerEmailController.text = "";
                                         controller.registerPasswordController.text = "";
-                                        Get.off(const HomePage());
+                                        Get.offAll(const HomePage());
                                       }
                                     },
                                   ),
