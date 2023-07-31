@@ -22,6 +22,7 @@ class HomePage2 extends StatelessWidget {
         body: Obx(
           () => ListView(
             children: [
+              const Divider(),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -50,7 +51,7 @@ class HomePage2 extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(), // Disable GridView's scroll
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, // Number of columns in the grid
-                  crossAxisSpacing: 8, // Spacing between columns
+                  crossAxisSpacing: 3, // Spacing between columns
                   mainAxisSpacing: 8, // Spacing between rows
                 ),
                 itemCount: controllers.filteredList.isEmpty

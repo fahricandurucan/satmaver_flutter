@@ -17,6 +17,7 @@ class ProductDetailPage extends GetView<HomePageControllers> {
       body: Obx(
         () => Column(
           children: [
+            const Divider(),
             const SizedBox(
               height: 15,
             ),
@@ -74,7 +75,7 @@ class ProductDetailPage extends GetView<HomePageControllers> {
             const SizedBox(
               height: 15,
             ),
-            controller.productStatus.value != ProductStatus.rezerve
+            controller.productStatus.value == ProductStatus.none
                 ? ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink.shade100.withOpacity(.7)),

@@ -4,13 +4,24 @@ import 'package:satmaver_flutter/models/product.dart';
 
 class HomePageControllers extends GetxController {
   final isSearch = false.obs;
+  final isLike = false.obs;
+
   Rx<ProductStatus> productStatus = ProductStatus.none.obs;
 
   var searchText = "".obs;
 
   final filteredList = <Product>[].obs;
+  final favoriteList = <Product>[].obs;
 
   var searchController = TextEditingController();
+
+  void addFavoriteList(Product product) {
+    favoriteList.add(product);
+  }
+
+  void deleteFavoriteList(Product product) {
+    favoriteList.remove(product);
+  }
 
   void applyFilter(String text) {
     for (final x in list) {
