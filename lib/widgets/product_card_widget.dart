@@ -14,6 +14,9 @@ class ProductCardWidget extends GetView<HomePageControllers> {
           padding: const EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 2),
           child: GestureDetector(
             onTap: () {
+              // print("1. = ${controller.productBox.length}");
+              // controller.deleteAll();
+              // print("2. = ${controller.productBox.length}");
               Get.to(ProductDetailPage(
                 product: product,
               ));
@@ -44,17 +47,19 @@ class ProductCardWidget extends GetView<HomePageControllers> {
                           padding: const EdgeInsets.all(4.0),
                           child: GestureDetector(
                             onTap: () {
-                              controller.favoriteList.contains(product)
+                              controller.favoriteIdList.contains(product.id)
                                   ? controller.deleteFavoriteList(product)
                                   : controller.addFavoriteList(product);
+
+                              print("3. = ${controller.productBox.length}");
                             },
                             child: AnimatedCrossFade(
                                 firstChild: firstWidget(),
                                 secondChild: secondWidget(),
-                                crossFadeState: controller.favoriteList.contains(product)
+                                crossFadeState: controller.favoriteIdList.contains(product.id)
                                     ? CrossFadeState.showFirst
                                     : CrossFadeState.showSecond,
-                                duration: const Duration(milliseconds: 600)),
+                                duration: const Duration(milliseconds: 500)),
                           ),
                         ),
                       ],
