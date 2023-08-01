@@ -48,12 +48,13 @@ class HomePageControllers extends GetxController {
 
   void deleteFavoriteList(Product product) {
     for (final key in productBox.keys) {
-      if (productBox.get(key) == product) {
+      if (productBox.get(key)!.id == product.id) {
         productBox.delete(key);
+        favoriteList.removeWhere((element) => element.id == product.id);
+        favoriteIdList.remove(product.id);
+        break;
       }
     }
-    favoriteList.remove(product);
-    favoriteIdList.remove(product.id);
   }
 
   void applyFilter(String text) {

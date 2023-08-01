@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:satmaver_flutter/controllers/login_controllers.dart';
 import 'package:satmaver_flutter/models/user.dart';
@@ -166,9 +167,18 @@ class LoginPage extends StatelessWidget {
                                               name: "",
                                               email: controllers.emailController.value.text,
                                               password: controllers.passwordController.value.text);
-                                          controllers.isLogged(user)
-                                              ? Get.off(const HomePage())
-                                              : Get.snackbar("User", "please create account");
+
+                                          if (controllers.isLogged(user)) {
+                                            EasyLoading.show(
+                                                maskType: EasyLoadingMaskType.clear,
+                                                status: "Giriş Yapılıyor...");
+                                            Future.delayed(const Duration(seconds: 2), () {
+                                              Get.off(const HomePage());
+                                              EasyLoading.dismiss();
+                                            });
+                                          } else {
+                                            Get.snackbar("User", "please create account");
+                                          }
                                         }
 
                                         controllers.passwordController.text = "";

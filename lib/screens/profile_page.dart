@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,24 @@ class ProfilePage extends GetView<LoginControllers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Merhaba ${controller.userName}"),
+        title: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Agne',
+          ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText(
+                'Merhaba ${controller.userName}',
+                textStyle: const TextStyle(color: Colors.black),
+                speed: const Duration(milliseconds: 70),
+                cursor: "",
+              ),
+            ],
+            totalRepeatCount: 1,
+          ),
+        ),
         leading: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Container(

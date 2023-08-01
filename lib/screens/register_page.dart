@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:satmaver_flutter/controllers/login_controllers.dart';
 import 'package:satmaver_flutter/models/user.dart';
@@ -166,7 +167,13 @@ class RegisterPage extends GetView<LoginControllers> {
                                         controller.registerNameController.text = "";
                                         controller.registerEmailController.text = "";
                                         controller.registerPasswordController.text = "";
-                                        Get.offAll(const HomePage());
+                                        EasyLoading.show(
+                                            maskType: EasyLoadingMaskType.clear,
+                                            status: "Giriş Yapılıyor...");
+                                        Future.delayed(const Duration(seconds: 2), () {
+                                          Get.offAll(const HomePage());
+                                          EasyLoading.dismiss();
+                                        });
                                       }
                                     },
                                   ),

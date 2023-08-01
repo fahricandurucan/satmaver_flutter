@@ -49,7 +49,7 @@ class HomePage extends GetView<LoginControllers> {
                 iconColor: Colors.grey,
               ),
               GButton(
-                icon: Icons.favorite_border,
+                icon: Icons.favorite,
                 text: "Favoriler",
                 iconColor: Colors.grey,
               ),
