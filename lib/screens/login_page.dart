@@ -12,6 +12,10 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controllers = Get.put(LoginControllers());
+    print("wefjwlekfjwf");
+    for (var i in controllers.userBox.value) {
+      print("${i.email} - ${i.password}");
+    }
 
     return GestureDetector(
       onTap: () {
@@ -144,6 +148,7 @@ class LoginPage extends StatelessWidget {
                                         style: TextStyle(color: Colors.pink.shade400),
                                       ),
                                       onPressed: () {
+                                        print(controllers.loginBox.length);
                                         print(controllers.emailController.text);
                                         print(controllers.passwordController.text);
 
@@ -172,7 +177,7 @@ class LoginPage extends StatelessWidget {
                                             EasyLoading.show(
                                                 maskType: EasyLoadingMaskType.clear,
                                                 status: "Giriş Yapılıyor...");
-                                            Future.delayed(const Duration(seconds: 2), () {
+                                            Future.delayed(const Duration(seconds: 3), () {
                                               Get.off(const HomePage());
                                               EasyLoading.dismiss();
                                             });

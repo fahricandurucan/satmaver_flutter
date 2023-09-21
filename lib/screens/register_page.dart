@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:satmaver_flutter/controllers/auth_controllers.dart';
 import 'package:satmaver_flutter/controllers/login_controllers.dart';
-import 'package:satmaver_flutter/models/user.dart';
-import 'package:satmaver_flutter/screens/home_page.dart';
+import 'package:satmaver_flutter/controllers/register_controllers.dart';
+import 'package:satmaver_flutter/widgets/textfield_widget.dart';
 
-class RegisterPage extends GetView<LoginControllers> {
+class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginControllers());
+    final registerController = Get.put(RegisterControllers());
+    final authController = Get.put(AuthControllers());
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -64,81 +68,14 @@ class RegisterPage extends GetView<LoginControllers> {
                           ),
                           Column(
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width / 1.2,
-                                    margin: const EdgeInsets.only(top: 30),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Colors.grey.withOpacity(.3),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                                      child: TextField(
-                                        controller: controller.registerNameController,
-                                        decoration: const InputDecoration(
-                                            icon: Icon(Icons.person),
-                                            fillColor: Colors.white,
-                                            border: InputBorder.none,
-                                            hintText: "Name"),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width / 1.2,
-                                    margin: const EdgeInsets.only(top: 30),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Colors.grey.withOpacity(.3),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                                      child: TextField(
-                                        controller: controller.registerEmailController,
-                                        decoration: const InputDecoration(
-                                            icon: Icon(Icons.lock),
-                                            fillColor: Colors.white,
-                                            border: InputBorder.none,
-                                            hintText: "Email"),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width / 1.2,
-                                    margin: const EdgeInsets.only(top: 30),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Colors.grey.withOpacity(.3),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                                      child: TextField(
-                                        controller: controller.registerPasswordController,
-                                        obscureText: true,
-                                        decoration: const InputDecoration(
-                                            icon: Icon(Icons.lock),
-                                            fillColor: Colors.white,
-                                            border: InputBorder.none,
-                                            hintText: "Password"),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              TextFieldWidget(
+                                  controller: registerController.name, hintTextt: "Name"),
+                              TextFieldWidget(
+                                  controller: registerController.email, hintTextt: "Email"),
+                              TextFieldWidget(
+                                controller: registerController.password,
+                                hintTextt: "Password",
+                                obscureText: true,
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
@@ -150,31 +87,36 @@ class RegisterPage extends GetView<LoginControllers> {
                                       style: TextStyle(color: Colors.red),
                                     ),
                                     onPressed: () {
-                                      if (controller.registerNameController.value.text.isEmpty ||
-                                          controller.registerEmailController.value.text.isEmpty ||
-                                          controller
-                                              .registerPasswordController.value.text.isEmpty) {
-                                        Get.snackbar("Hata", "Tüm boşlukları doldurun");
-                                      } else {
-                                        controller.bottomNavBarIdx.value = 0;
-                                        User user = User(
-                                            name: controller.registerNameController.value.text,
-                                            email: controller.registerEmailController.value.text,
-                                            password:
-                                                controller.registerPasswordController.value.text);
-                                        print(user.toString());
-                                        controller.addLoginBox(user);
-                                        controller.registerNameController.text = "";
-                                        controller.registerEmailController.text = "";
-                                        controller.registerPasswordController.text = "";
-                                        EasyLoading.show(
-                                            maskType: EasyLoadingMaskType.clear,
-                                            status: "Giriş Yapılıyor...");
-                                        Future.delayed(const Duration(seconds: 2), () {
-                                          Get.offAll(const HomePage());
-                                          EasyLoading.dismiss();
-                                        });
-                                      }
+                                      authController.signUpWithEmail(
+                                          name: registerController.name.text,
+                                          email: registerController.email.text,
+                                          password: registerController.password.text);
+
+                                      // if (controller.registerNameController.value.text.isEmpty ||
+                                      //     controller.registerEmailController.value.text.isEmpty ||
+                                      //     controller
+                                      //         .registerPasswordController.value.text.isEmpty) {
+                                      //   Get.snackbar("Hata", "Tüm boşlukları doldurun");
+                                      // } else {
+                                      //   controller.bottomNavBarIdx.value = 0;
+                                      //   User user = User(
+                                      //       name: controller.registerNameController.value.text,
+                                      //       email: controller.registerEmailController.value.text,
+                                      //       password:
+                                      //           controller.registerPasswordController.value.text);
+                                      //   print(user.toString());
+                                      //   controller.addLoginBox(user);
+                                      //   controller.registerNameController.text = "";
+                                      //   controller.registerEmailController.text = "";
+                                      //   controller.registerPasswordController.text = "";
+                                      //   EasyLoading.show(
+                                      //       maskType: EasyLoadingMaskType.clear,
+                                      //       status: "Giriş Yapılıyor...");
+                                      //   Future.delayed(const Duration(seconds: 2), () {
+                                      //     Get.offAll(const HomePage());
+                                      //     EasyLoading.dismiss();
+                                      //   });
+                                      // }
                                     },
                                   ),
                                 ),
