@@ -21,7 +21,6 @@ class SearchBarWidget extends GetView<HomePageControllers> {
           suffixIcon: GestureDetector(
             onTap: () {
               if (controller.searchController.text.isNotEmpty) {
-                controller.applyFilter(controller.searchController.text);
               } else {
                 print("ara sokaktasın abe hayrannnn yavaş gel");
               }

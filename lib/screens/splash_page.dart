@@ -1,6 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:satmaver_flutter/screens/register_page.dart';
+import 'package:satmaver_flutter/screens/root_wrapper.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class SplashPage extends StatelessWidget {
           width: 150,
         ),
       ),
-      nextScreen: const RegisterPage(),
+      nextScreen: const RootWrapper(),
       duration: 3000,
       splashTransition: SplashTransition.scaleTransition,
     );

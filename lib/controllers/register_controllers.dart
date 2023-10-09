@@ -5,6 +5,7 @@ class RegisterControllers extends GetxController {
   final name = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
+  final passwordConfirm = TextEditingController();
 
   @override
   void onClose() {

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:satmaver_flutter/controllers/auth_controllers.dart';
 import 'package:satmaver_flutter/controllers/login_controllers.dart';
-import 'package:satmaver_flutter/models/user.dart';
-import 'package:satmaver_flutter/screens/home_page.dart';
 import 'package:satmaver_flutter/screens/register_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -12,10 +10,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controllers = Get.put(LoginControllers());
-    print("wefjwlekfjwf");
-    for (var i in controllers.userBox.value) {
-      print("${i.email} - ${i.password}");
-    }
+    final authController = Get.find<AuthControllers>();
 
     return GestureDetector(
       onTap: () {
@@ -148,48 +143,9 @@ class LoginPage extends StatelessWidget {
                                         style: TextStyle(color: Colors.pink.shade400),
                                       ),
                                       onPressed: () {
-                                        print(controllers.loginBox.length);
-                                        print(controllers.emailController.text);
-                                        print(controllers.passwordController.text);
-
-                                        if (controllers.passwordController.value.text.isEmpty &&
-                                            controllers.emailController.value.text.isEmpty) {
-                                          Get.snackbar("Email and Password", "empty");
-                                          controllers.passwordController.text = "";
-                                          controllers.emailController.text = "";
-                                        } else if (controllers
-                                            .passwordController.value.text.isEmpty) {
-                                          Get.snackbar("Password", "empty");
-                                          controllers.emailController.text = "";
-                                          controllers.passwordController.text = "";
-                                        } else if (controllers.emailController.text.isEmpty) {
-                                          controllers.emailController.text = "";
-                                          controllers.passwordController.text = "";
-                                          Get.snackbar("Email", "empty");
-                                        } else {
-                                          controllers.bottomNavBarIdx.value = 0;
-                                          User user = User(
-                                              name: "",
-                                              email: controllers.emailController.value.text,
-                                              password: controllers.passwordController.value.text);
-
-                                          if (controllers.isLogged(user)) {
-                                            EasyLoading.show(
-                                                maskType: EasyLoadingMaskType.clear,
-                                                status: "Giriş Yapılıyor...");
-                                            Future.delayed(const Duration(seconds: 3), () {
-                                              Get.off(const HomePage());
-                                              EasyLoading.dismiss();
-                                            });
-                                          } else {
-                                            Get.snackbar("User", "please create account");
-                                          }
-                                        }
-
-                                        controllers.passwordController.text = "";
-                                        controllers.emailController.text = "";
-
-                                        // Get.to(const HomePage());
+                                        authController.signInWithEmail(
+                                            controllers.emailController.text,
+                                            controllers.passwordController.text);
                                       },
                                     ),
                                   ),

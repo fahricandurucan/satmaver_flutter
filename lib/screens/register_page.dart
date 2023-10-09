@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:satmaver_flutter/controllers/auth_controllers.dart';
-import 'package:satmaver_flutter/controllers/login_controllers.dart';
 import 'package:satmaver_flutter/controllers/register_controllers.dart';
 import 'package:satmaver_flutter/widgets/textfield_widget.dart';
 
@@ -10,7 +9,6 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginControllers());
     final registerController = Get.put(RegisterControllers());
     final authController = Get.put(AuthControllers());
 
@@ -77,6 +75,11 @@ class RegisterPage extends StatelessWidget {
                                 hintTextt: "Password",
                                 obscureText: true,
                               ),
+                              TextFieldWidget(
+                                controller: registerController.passwordConfirm,
+                                hintTextt: "Password Confirm",
+                                obscureText: true,
+                              ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
                                 child: SizedBox(
@@ -87,36 +90,15 @@ class RegisterPage extends StatelessWidget {
                                       style: TextStyle(color: Colors.red),
                                     ),
                                     onPressed: () {
-                                      authController.signUpWithEmail(
-                                          name: registerController.name.text,
-                                          email: registerController.email.text,
-                                          password: registerController.password.text);
-
-                                      // if (controller.registerNameController.value.text.isEmpty ||
-                                      //     controller.registerEmailController.value.text.isEmpty ||
-                                      //     controller
-                                      //         .registerPasswordController.value.text.isEmpty) {
-                                      //   Get.snackbar("Hata", "Tüm boşlukları doldurun");
-                                      // } else {
-                                      //   controller.bottomNavBarIdx.value = 0;
-                                      //   User user = User(
-                                      //       name: controller.registerNameController.value.text,
-                                      //       email: controller.registerEmailController.value.text,
-                                      //       password:
-                                      //           controller.registerPasswordController.value.text);
-                                      //   print(user.toString());
-                                      //   controller.addLoginBox(user);
-                                      //   controller.registerNameController.text = "";
-                                      //   controller.registerEmailController.text = "";
-                                      //   controller.registerPasswordController.text = "";
-                                      //   EasyLoading.show(
-                                      //       maskType: EasyLoadingMaskType.clear,
-                                      //       status: "Giriş Yapılıyor...");
-                                      //   Future.delayed(const Duration(seconds: 2), () {
-                                      //     Get.offAll(const HomePage());
-                                      //     EasyLoading.dismiss();
-                                      //   });
-                                      // }
+                                      if (registerController.password.text ==
+                                          registerController.passwordConfirm.text) {
+                                        authController.signUpWithEmail(
+                                            name: registerController.name.text,
+                                            email: registerController.email.text,
+                                            password: registerController.password.text);
+                                      } else {
+                                        Get.snackbar("Error", "The password do not match!");
+                                      }
                                     },
                                   ),
                                 ),

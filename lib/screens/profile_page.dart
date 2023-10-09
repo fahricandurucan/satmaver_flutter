@@ -1,11 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
-import 'package:satmaver_flutter/controllers/login_controllers.dart';
-import 'package:satmaver_flutter/screens/login_page.dart';
+import 'package:satmaver_flutter/controllers/auth_controllers.dart';
 
-class ProfilePage extends GetView<LoginControllers> {
+class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
@@ -21,7 +19,7 @@ class ProfilePage extends GetView<LoginControllers> {
           child: AnimatedTextKit(
             animatedTexts: [
               TypewriterAnimatedText(
-                'Merhaba ${controller.userName}',
+                'Merhaba ${AuthControllers.to.currentUser.value!.name}',
                 textStyle: const TextStyle(color: Colors.black),
                 speed: const Duration(milliseconds: 70),
                 cursor: "",
@@ -94,8 +92,7 @@ class ProfilePage extends GetView<LoginControllers> {
             onTap: () {
               EasyLoading.show(maskType: EasyLoadingMaskType.clear, status: "Çıkış Yapılıyor...");
               Future.delayed(const Duration(seconds: 3), () {
-                Get.off(const LoginPage(), transition: Transition.upToDown);
-                controller.deleteAccount(controller.userName.value);
+                AuthControllers.to.signOut();
                 EasyLoading.dismiss();
               });
             },
